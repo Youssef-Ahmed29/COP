@@ -511,10 +511,11 @@ class ResultsPanel(QWidget):
             add_row(self.tok_table, (i, t.lexeme, display_type(t, ids), f"{t.line}:{t.col}"),
                     span=(t.line, t.col, len(t.lexeme)), colors={2: type_color(t.type)})
 
-        # token stream
-        stream = " ".join(f"<{ids[t.lexeme]}>" if t.type == "IDENTIFIER"
-                          else f"<{t.type}, {t.lexeme}>" if t.type in ("INT_NUM", "FLOAT_NUM")
-                          else f"<{t.type}>" for t in tokens)
+        # token stream (compact, source-like display)
+        stream = "".join(
+            ids[t.lexeme] if t.type == "IDENTIFIER" else t.lexeme
+            for t in tokens
+        )
         self.stream_output.setPlainText(stream)
 
         # symbol table (first appearance order)

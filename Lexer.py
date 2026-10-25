@@ -274,10 +274,13 @@ def print_tokens(tokens: list[Token]):
 
 def print_stream(tokens: list[Token]):
     ids = identifier_ids(tokens)
+
     print("\nToken stream:")
-    print("  " + " ".join(f"<{ids[t.lexeme]}>" if t.type == "IDENTIFIER"
-                          else f"<{t.type}, {t.lexeme}>" if t.type in ("INT_NUM", "FLOAT_NUM")
-                          else f"<{t.type}>" for t in tokens))
+    print("  " + "".join(
+        ids[t.lexeme] if t.type == "IDENTIFIER" else t.lexeme
+        for t in tokens
+    ))
+
 
 
 def print_symbol_table(tokens: list[Token]):
